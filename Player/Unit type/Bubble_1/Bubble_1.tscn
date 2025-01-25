@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://gh34wswqm3s4"]
+
+[ext_resource type="Script" path="res://Player/Unit type/Bubble_1/Bubble_1.gd" id="1_iqijn"]
+[ext_resource type="SpriteFrames" uid="uid://p1dn5flytwsp" path="res://Player/Unit type/Bubble_1/Bubble_1_sprite_frames.tres" id="2_ey826"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46xgv"]
+radius = 50.0
+
+[node name="Bubble_1" type="Node2D"]
+script = ExtResource("1_iqijn")
+vel = 10.0
+dir = Vector2(1, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_ey826")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_46xgv")

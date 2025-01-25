@@ -1,0 +1,29 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://btouksuvfmovr"]
+
+[ext_resource type="Texture2D" uid="uid://rnsq0wctu8b8" path="res://icon.svg" id="1_glelq"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Casting",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"IDLE",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_glelq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

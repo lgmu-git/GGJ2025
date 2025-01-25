@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://bvj4bsa64ai8p"]
+
+[ext_resource type="Texture2D" uid="uid://b8p46h0wmb0p8" path="res://Player/Unit type/Bubble_3/Bubble_3_img.png" id="1_uwdvi"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_uwdvi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

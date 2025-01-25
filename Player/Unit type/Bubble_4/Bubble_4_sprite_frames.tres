@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://cncp2pm8hhmtv"]
+
+[ext_resource type="Texture2D" uid="uid://bwgn0cmxhu45d" path="res://Player/Unit type/Bubble_4/Bubble_4_img.png" id="1_a8sfb"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_a8sfb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

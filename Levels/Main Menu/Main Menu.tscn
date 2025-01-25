@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0pbjaoydssf7"]
+
+[ext_resource type="Texture2D" uid="uid://bh62ij5xedb3u" path="res://Levels/Main Menu/Background.png" id="1_py5cw"]
+[ext_resource type="Script" path="res://Levels/Main Menu/Menu.gd" id="1_s84ve"]
+[ext_resource type="PackedScene" uid="uid://cyx84g6gsn784" path="res://Levels/Level 1/Level_1.tscn" id="2_tdjhb"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s84ve")
+scene_start = ExtResource("2_tdjhb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -27.0
+offset_top = -87.0
+offset_right = 1893.0
+offset_bottom = 993.0
+texture = ExtResource("1_py5cw")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 338.0
+offset_right = 234.0
+offset_bottom = 413.0
+theme_override_colors/font_color = Color(0, 0.929412, 0.847059, 1)
+text = "Start"
+
+[node name="Credits" type="Button" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 510.0
+offset_right = 235.0
+offset_bottom = 585.0
+theme_override_colors/font_color = Color(0, 0.929412, 0.847059, 1)
+text = "Credits"
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
