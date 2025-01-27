@@ -1,6 +1,13 @@
 class_name Player
 extends Node2D
 
+@export_file() var scene_menu
+
+@export_category("Audio")
+@export var music: AudioStreamPlayer2D
+@export var audio_bubble: AudioStreamPlayer2D
+@export var audio_damage: AudioStreamPlayer2D
+
 @export_category("Camera")
 @export var cam: Camera2D
 
@@ -49,11 +56,27 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (abs(Input.get_joy_axis(0, JOY_AXIS_LEFT_X)) > mov_threshold or 
 		abs(Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)) > mov_threshold):
-		pj.position.x += (Input.get_joy_axis(0, JOY_AXIS_LEFT_X) * mov)
-		pj.position.y += (Input.get_joy_axis(0, JOY_AXIS_LEFT_Y) * mov)
+		pj.position.x += (Input.get_joy_axis(0, JOY_AXIS_LEFT_X) * mov * delta)
+		pj.position.y += (Input.get_joy_axis(0, JOY_AXIS_LEFT_Y) * mov * delta)
 		reparentCamPj()
+		pj.animation = "Move"
+		pj.flip_h = true if (Input.get_joy_axis(0, JOY_AXIS_LEFT_X) < 0) else false
 		# off highlight
 		get_tree().call_group(Group.group_bubble_highlight, "setHighlight", false)
+	else:
+		pj.animation = "IDLE"
+		pj.flip_h = false
+	
+	if (Input.is_action_just_pressed("Bubble_rotate_left")):
+		#Input.is_action_just_pressed()
+		#print("Rotate Left")
+		if (get_tree().has_group(Group.group_bubble_highlight)):
+			get_tree().call_group(Group.group_bubble_highlight, "rotateBubble", -1)
+	if (Input.is_action_just_pressed("Bubble_rotate_right")):
+		#print("Rotate Right")
+		if (get_tree().has_group(Group.group_bubble_highlight)):
+			get_tree().call_group(Group.group_bubble_highlight, "rotateBubble", 1)
+		
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Selecting a Bubble trigger a camera changes
@@ -114,6 +137,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		#print(event.get_action_strength("Cast_right"))
 		addCast(casting.right)
 
+
 ## Reset casting when timer finishes
 func _on_casting_timer_timeout() -> void:
 	cast.clear()
@@ -122,6 +146,9 @@ func _on_casting_timer_timeout() -> void:
 func _on_soap_timer_timeout() -> void:
 	soap.val += 5
 	Soap_timer.start(5)
+
+#func _on_bubble_deleted() -> void:
+	#pass
 
 func addCast(c: casting) -> void:
 	if (cast.has(c)):
@@ -156,9 +183,10 @@ func spawnBubble(s: PackedScene) -> Bubble:
 	casting_timer.stop()
 	casting_timer.timeout.emit()
 	var n: Bubble = s.instantiate()
+	#n.bubble_deleted.connect(_on_bubble_deleted)
 	n.position = pj.position
 	add_child(n)
-	
+	audio_bubble.play()
 	soap.val -= 7
 	return n
 
@@ -169,3 +197,17 @@ func reparentCam(n: Array[Bubble_quantity]) -> void:
 func reparentCamPj() -> void:
 	cam.reparent(pj)
 	cam.position = Vector2(0, 0)
+
+
+func _on_objetive_area_entered(_area: Area2D) -> void:
+	# Win level
+	get_tree().change_scene_to_file(scene_menu)
+	
+	#get_tree().change_scene_to_file("res://Levels/Menu/Menu.tscn")
+
+func updateHealth(val: int):
+	health.value += val
+	if (health.value <= 0):
+		audio_damage.play()
+		await audio_damage.finished
+		get_tree().change_scene_to_file(scene_menu)

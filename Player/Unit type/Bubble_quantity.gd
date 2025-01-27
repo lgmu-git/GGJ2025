@@ -26,3 +26,14 @@ func setHighlight(a: bool) -> void:
 		if (is_in_group(Group.group_bubble_highlight)):
 			remove_from_group(Group.group_bubble_highlight)
 	highlight.visible = a
+
+func bubble_destroyed(b: Bubble) -> void:
+	var ind = list.find(b)
+	if (ind != -1):
+		list.remove_at(ind)
+	quantity = list.size()
+	text.text = "x" + str(quantity)
+
+func rotateBubble(val: int):
+	print("--------------------")
+	get_tree().call_group(group, "rotateBubble", val)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkwxac07wg2m3"]
+[gd_scene load_steps=19 format=3 uid="uid://dkwxac07wg2m3"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_om8na"]
 [ext_resource type="PackedScene" uid="uid://gh34wswqm3s4" path="res://Player/Unit type/Bubble_1/Bubble_1.tscn" id="2_4ix1o"]
@@ -8,20 +8,31 @@
 [ext_resource type="Script" path="res://Player/Unit type/Bubble_quantity.gd" id="4_voq7l"]
 [ext_resource type="PackedScene" uid="uid://ci366mdsgq8nt" path="res://Player/Unit type/Bubble_4/Bubble_4.tscn" id="5_3ylqj"]
 [ext_resource type="Script" path="res://Camera/Cam.gd" id="6_0anfb"]
-[ext_resource type="Texture2D" uid="uid://dtxf0sps8yxlr" path="res://Player/Unit type/Bubble_1/Bubble_1_img.png" id="6_3prmd"]
 [ext_resource type="Script" path="res://Player/soap.gd" id="6_etqp0"]
-[ext_resource type="Texture2D" uid="uid://0ob7qg0p8jdk" path="res://Player/Unit type/Bubble_2/Bubble_2_img.png" id="8_fcwx5"]
-[ext_resource type="Texture2D" uid="uid://b8p46h0wmb0p8" path="res://Player/Unit type/Bubble_3/Bubble_3_img.png" id="9_0q762"]
-[ext_resource type="Texture2D" uid="uid://c12kdkx5pcmh5" path="res://Player/Unit type/img/highlight.png" id="9_ibr45"]
-[ext_resource type="Texture2D" uid="uid://bwgn0cmxhu45d" path="res://Player/Unit type/Bubble_4/Bubble_4_img.png" id="10_6slew"]
+[ext_resource type="Texture2D" uid="uid://homox1tlm3hj" path="res://Player/Unit type/Bubble GUI/sprBubble2Fix.png" id="7_htyqj"]
+[ext_resource type="Texture2D" uid="uid://c12kdkx5pcmh5" path="res://Player/Unit type/Bubble GUI/highlight.png" id="9_ibr45"]
+[ext_resource type="Texture2D" uid="uid://bn653va2akqmj" path="res://Player/Unit type/Bubble GUI/sprBubble4Fix.png" id="10_uexqo"]
+[ext_resource type="Texture2D" uid="uid://dng88q087l27n" path="res://Player/Unit type/Bubble GUI/sprBubble1Fix.png" id="11_ak8kv"]
+[ext_resource type="Texture2D" uid="uid://b5rgyvqajxjx4" path="res://Player/Unit type/Bubble GUI/sprBubble3Fix.png" id="12_x8oqm"]
+[ext_resource type="AudioStream" uid="uid://bafskxvo7nhay" path="res://Audio/sndPlayerDamage.mp3" id="15_0qouw"]
+[ext_resource type="AudioStream" uid="uid://b77fw3vbp161t" path="res://Audio/sndBubble1.mp3" id="15_v7ute"]
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("cam", "health", "soap", "pj", "bubble_1_quantity", "bubble_2_quantity", "bubble_3_quantity", "bubble_4_quantity", "casting_timer", "Soap_timer")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1r5l"]
+bg_color = Color(1.44874e-05, 0.910396, 0.203218, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ua2d"]
+radius = 25.4951
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("audio_bubble", "audio_damage", "cam", "health", "soap", "pj", "bubble_1_quantity", "bubble_2_quantity", "bubble_3_quantity", "bubble_4_quantity", "casting_timer", "Soap_timer")]
 script = ExtResource("1_om8na")
+scene_menu = "res://Levels/Menu/Menu.tscn"
+audio_bubble = NodePath("Audio_bubble")
+audio_damage = NodePath("Audio_damage")
 cam = NodePath("Cam")
 health = NodePath("UI/Health")
 soap = NodePath("UI/Soap")
 pj = NodePath("PJ")
-mov = 4.0
+mov = 100.0
 mov_threshold = 0.25
 bubble_1_quantity = NodePath("UI/Bubble_1")
 bubble_2_quantity = NodePath("UI/Bubble_2")
@@ -37,18 +48,20 @@ Soap_timer = NodePath("Soap_Timer")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Health" type="ProgressBar" parent="UI"]
-custom_minimum_size = Vector2(250, 50)
-offset_left = 1015.0
-offset_top = 70.0
-offset_right = 1265.0
-offset_bottom = 120.0
+custom_minimum_size = Vector2(100, 20)
+offset_left = 490.0
+offset_top = 7.0
+offset_right = 590.0
+offset_bottom = 34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_v1r5l")
+show_percentage = false
 
 [node name="Soap" type="ProgressBar" parent="UI"]
-custom_minimum_size = Vector2(250, 50)
-offset_left = 1014.0
-offset_top = 13.0
-offset_right = 1264.0
-offset_bottom = 63.0
+custom_minimum_size = Vector2(100, 20)
+offset_left = 490.0
+offset_top = 40.0
+offset_right = 590.0
+offset_bottom = 67.0
 step = 1.0
 value = 50.0
 script = ExtResource("6_etqp0")
@@ -58,8 +71,8 @@ offset_left = 12.0
 offset_top = 16.0
 offset_right = 44.0
 offset_bottom = 48.0
-scale = Vector2(2, 2)
-texture = ExtResource("6_3prmd")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_htyqj")
 stretch_mode = 4
 script = ExtResource("4_voq7l")
 text = NodePath("Quantity")
@@ -75,7 +88,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = -24.0
-offset_right = 51.0
+offset_right = 81.0
 offset_bottom = 26.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -96,11 +109,11 @@ texture = ExtResource("9_ibr45")
 
 [node name="Bubble_2" type="TextureRect" parent="UI" node_paths=PackedStringArray("text", "highlight")]
 offset_left = 16.0
-offset_top = 118.0
-offset_right = 48.0
-offset_bottom = 150.0
-scale = Vector2(2, 2)
-texture = ExtResource("8_fcwx5")
+offset_top = 92.0
+offset_right = 80.0
+offset_bottom = 156.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_uexqo")
 script = ExtResource("4_voq7l")
 text = NodePath("Quantity")
 highlight = NodePath("highlight")
@@ -114,9 +127,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -3.0
-offset_top = -20.5
-offset_right = 47.0
-offset_bottom = 29.5
+offset_top = -20.0
+offset_right = 83.0
+offset_bottom = 30.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/bold_italics_font_size = 12
@@ -136,11 +149,11 @@ texture = ExtResource("9_ibr45")
 
 [node name="Bubble_3" type="TextureRect" parent="UI" node_paths=PackedStringArray("text", "highlight")]
 offset_left = 16.0
-offset_top = 231.0
-offset_right = 48.0
-offset_bottom = 263.0
-scale = Vector2(2, 2)
-texture = ExtResource("9_0q762")
+offset_top = 171.0
+offset_right = 80.0
+offset_bottom = 235.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_ak8kv")
 script = ExtResource("4_voq7l")
 text = NodePath("Quantity")
 highlight = NodePath("highlight")
@@ -153,9 +166,8 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.5
 offset_top = -17.0
-offset_right = 49.5
+offset_right = 81.0
 offset_bottom = 33.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -176,11 +188,11 @@ texture = ExtResource("9_ibr45")
 
 [node name="Bubble_4" type="TextureRect" parent="UI" node_paths=PackedStringArray("text", "highlight")]
 offset_left = 14.0
-offset_top = 348.0
-offset_right = 46.0
-offset_bottom = 380.0
-scale = Vector2(2, 2)
-texture = ExtResource("10_6slew")
+offset_top = 255.0
+offset_right = 78.0
+offset_bottom = 319.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_x8oqm")
 script = ExtResource("4_voq7l")
 text = NodePath("Quantity")
 highlight = NodePath("highlight")
@@ -194,9 +206,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -1.0
-offset_top = -19.5
-offset_right = 49.0
-offset_bottom = 30.5
+offset_top = -19.0
+offset_right = 88.0
+offset_bottom = 31.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/bold_italics_font_size = 12
@@ -214,9 +226,17 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("9_ibr45")
 
-[node name="PJ" type="AnimatedSprite2D" parent="."]
+[node name="PJ" type="AnimatedSprite2D" parent="." groups=["PJ"]]
 position = Vector2(526, 269)
 sprite_frames = ExtResource("2_xeric")
+animation = &"IDLE"
+autoplay = "IDLE"
+frame_progress = 0.807923
+
+[node name="Area2D" type="Area2D" parent="PJ"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PJ/Area2D"]
+shape = SubResource("CircleShape2D_8ua2d")
 
 [node name="Cam" type="Camera2D" parent="."]
 script = ExtResource("6_0anfb")
@@ -225,6 +245,14 @@ script = ExtResource("6_0anfb")
 
 [node name="Soap_Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="Audio_damage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_0qouw")
+volume_db = 2.0
+
+[node name="Audio_bubble" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_v7ute")
+volume_db = 2.0
 
 [connection signal="timeout" from="Casting_Timer" to="." method="_on_casting_timer_timeout"]
 [connection signal="timeout" from="Soap_Timer" to="." method="_on_soap_timer_timeout"]

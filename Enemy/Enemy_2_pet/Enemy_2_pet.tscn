@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy4y4pwp7m2rh"]
+
+[ext_resource type="Script" path="res://Enemy/Enemy_2_pet/Enemy_2_pet.gd" id="1_v5tvr"]
+[ext_resource type="SpriteFrames" uid="uid://d35isbimr8wvk" path="res://Enemy/Enemy_1_child/Enemy_1_child_sprite_frames.tres" id="2_47fvf"]
+[ext_resource type="AudioStream" uid="uid://cscilqtsh0cdu" path="res://Audio/sndEnemyDamage.mp3" id="3_vmiv3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3in4p"]
+bg_color = Color(0.6, 1, 0.6, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxxiy"]
+radius = 50.0
+
+[node name="Enemy_2_pet" type="Node2D" node_paths=PackedStringArray("sprite", "health", "audio_damage")]
+script = ExtResource("1_v5tvr")
+sprite = NodePath("AnimatedSprite2D")
+health = NodePath("Health")
+audio_damage = NodePath("Audio_damage")
+
+[node name="Health" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(100, 5)
+offset_left = -51.0
+offset_top = -75.0
+offset_right = 49.0
+offset_bottom = -65.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_3in4p")
+value = 100.0
+show_percentage = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_47fvf")
+animation = &"Move"
+autoplay = "Move"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_oxxiy")
+
+[node name="Audio_damage" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_vmiv3")
+volume_db = 10.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

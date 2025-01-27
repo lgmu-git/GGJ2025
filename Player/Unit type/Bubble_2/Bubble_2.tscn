@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://uuf3sfk22j8v"]
 
-[ext_resource type="Script" path="res://Player/Unit type/Bubble_1/Bubble_1.gd" id="1_higx0"]
+[ext_resource type="Script" path="res://Player/Unit type/Bubble_2/Bubble_2.gd" id="1_wx4av"]
 [ext_resource type="SpriteFrames" uid="uid://dbvx82v60rulf" path="res://Player/Unit type/Bubble_2/Bubble_2_sprite_frames.tres" id="2_xx0v7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_46xgv"]
 radius = 50.0
 
-[node name="Bubble_1" type="Node2D"]
-script = ExtResource("1_higx0")
+[node name="Bubble_2" type="Node2D"]
+script = ExtResource("1_wx4av")
 vel = 10.0
 dir = Vector2(1, 0)
 

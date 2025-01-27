@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://c55v6kbbcdtm8"]
+
+[ext_resource type="Script" path="res://Levels/Credits/Credits.gd" id="1_0kyeo"]
+[ext_resource type="Texture2D" uid="uid://c5m2727deq4qb" path="res://Levels/Credits/sprCredits.png" id="2_c4l5c"]
+[ext_resource type="SpriteFrames" uid="uid://btouksuvfmovr" path="res://Player/Player_sprite_frames.tres" id="2_nlcgy"]
+[ext_resource type="SpriteFrames" uid="uid://p1dn5flytwsp" path="res://Player/Unit type/Bubble_1/Bubble_1_sprite_frames.tres" id="3_ip37m"]
+[ext_resource type="SpriteFrames" uid="uid://dbvx82v60rulf" path="res://Player/Unit type/Bubble_2/Bubble_2_sprite_frames.tres" id="4_ko06k"]
+[ext_resource type="SpriteFrames" uid="uid://bvj4bsa64ai8p" path="res://Player/Unit type/Bubble_3/Bubble_3_sprite_frames.tres" id="5_kpgua"]
+[ext_resource type="SpriteFrames" uid="uid://cncp2pm8hhmtv" path="res://Player/Unit type/Bubble_4/Bubble_4_sprite_frames.tres" id="6_3lkdm"]
+[ext_resource type="SpriteFrames" uid="uid://d35isbimr8wvk" path="res://Enemy/Enemy_1_child/Enemy_1_child_sprite_frames.tres" id="7_16fnk"]
+[ext_resource type="SpriteFrames" uid="uid://cbpweuq1qujsg" path="res://Enemy/Enemy_4_mimo/Enemy_4_mimo_sprite_frames.tres" id="8_legei"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0kyeo")
+scene_menu = "res://Levels/Menu/Menu.tscn"
+
+[node name="SprCredits" type="Sprite2D" parent="."]
+position = Vector2(320, 180)
+texture = ExtResource("2_c4l5c")
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 0
+offset_left = 279.0
+offset_top = 287.0
+offset_right = 340.0
+offset_bottom = 318.0
+text = "Return"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -117.0
+offset_right = 238.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Game made by:
+                          Design and Programming
+                                  [color=#ff0000][wave amp=50]Gabriel (Flame_dev)[/wave][/color]
+
+                                 Pixel Art and Music
+                                             [color=#ff0000][tornado amp=50]GeoMont[/tornado][/color]
+
+                                   Art inspirated in
+                                           [color=#ff0000][shake amp=50]Alonso[/shake][/color]"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(476, 146)
+sprite_frames = ExtResource("2_nlcgy")
+animation = &"IDLE"
+autoplay = "IDLE"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(36, 34)
+sprite_frames = ExtResource("3_ip37m")
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="."]
+position = Vector2(600, 36)
+sprite_frames = ExtResource("3_ip37m")
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="."]
+position = Vector2(305, 35)
+sprite_frames = ExtResource("3_ip37m")
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+position = Vector2(31, 211)
+sprite_frames = ExtResource("4_ko06k")
+
+[node name="AnimatedSprite2D8" type="AnimatedSprite2D" parent="."]
+position = Vector2(601, 132)
+sprite_frames = ExtResource("4_ko06k")
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="."]
+position = Vector2(34, 286)
+sprite_frames = ExtResource("5_kpgua")
+
+[node name="AnimatedSprite2D9" type="AnimatedSprite2D" parent="."]
+position = Vector2(607, 218)
+sprite_frames = ExtResource("5_kpgua")
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="."]
+position = Vector2(142, 323)
+sprite_frames = ExtResource("6_3lkdm")
+
+[node name="AnimatedSprite2D10" type="AnimatedSprite2D" parent="."]
+position = Vector2(455, 323)
+sprite_frames = ExtResource("6_3lkdm")
+
+[node name="AnimatedSprite2D11" type="AnimatedSprite2D" parent="."]
+position = Vector2(203, 284)
+sprite_frames = ExtResource("7_16fnk")
+animation = &"Move"
+autoplay = "Move"
+
+[node name="AnimatedSprite2D12" type="AnimatedSprite2D" parent="."]
+position = Vector2(534, 260)
+sprite_frames = ExtResource("7_16fnk")
+animation = &"Move"
+autoplay = "Move"
+
+[node name="AnimatedSprite2D13" type="AnimatedSprite2D" parent="."]
+position = Vector2(122, 167)
+sprite_frames = ExtResource("8_legei")
+animation = &"Move"
+autoplay = "Move"
+
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
